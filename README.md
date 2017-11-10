@@ -1,25 +1,12 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 # text-alerts
+## Trello board
+https://trello.com/b/BmX9niuW/project-4
+
+## ERD's
+![oops! look in diagrams/ERDs.png for the image that should be here](/diagrams/Erds.png?raw=true "ERD")
+
+## Wireframe
+![oops! look in diagrams/Wireframe.png for the image that should be here](/diagrams/Wireframe.png?raw=true "Wireframe")
+
+## Deployed Heroku link
+https://text-alerts-wdi12.herokuapp.com/
