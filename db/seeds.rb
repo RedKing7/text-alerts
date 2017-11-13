@@ -6,5 +6,7 @@ rory.password = 'password'
 rory.phone_number = TEST_NUMBER
 rory.save
 
-Alarm.create({user_id: rory.id, name: 'test alarm', repeat: false, time_of_alarm: Time.zone.now.to_datetime})
-Reminder.create({user_id: rory.id, title: 'test reminder', task: 'test message', time_of_reminder: Time.zone.now.to_datetime})
+today = Time.zone.now.to_datetime
+
+Alarm.create({user_id: rory.id, name: 'test alarm', repeat: false, time_of_alarm: today + 5.minutes})
+Reminder.create({user_id: rory.id, title: 'test reminder', task: 'test message', time_of_reminder: today + 10.minutes})
