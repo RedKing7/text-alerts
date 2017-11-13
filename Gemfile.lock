@@ -43,6 +43,10 @@ GEM
     byebug (9.1.0)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     erubi (1.7.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
@@ -133,6 +137,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  dotenv-rails
   hirb
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)

@@ -16,6 +16,12 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+ACCOUNT_SID = ENV['ACCOUNT_SID']
+AUTH_TOKEN = ENV['AUTH_TOKEN']
+TEST_NUMBER = ENV['TEST_NUMBER']
+TWILIO_NUMBER = ENV['TWILIO_NUMBER']
+
 module TextAlerts
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
