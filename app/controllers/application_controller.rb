@@ -8,7 +8,6 @@ class ApplicationController < ActionController::API
       body: "Hello from Rails!",
       to: TEST_NUMBER,    # Replace with your phone number
       from: TWILIO_NUMBER)  # Replace with your Twilio number
-    
     puts message.sid
 
     render json: message.sid
