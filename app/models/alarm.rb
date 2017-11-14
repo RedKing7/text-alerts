@@ -15,6 +15,8 @@ class Alarm < ApplicationRecord
       :to => @phone_number,
       :body => alarm
     )
+
+    # :completed = true
   end
 
   def when_to_run

@@ -16,6 +16,8 @@ class Reminder < ApplicationRecord
       :to => @phone_number,
       :body => reminder
     )
+
+    # :completed = true
   end
 
   def when_to_run

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import AlertForm from './AlertForm';
 
 class AlertsList extends Component {
   state = {
     user: {},
     reminders: [],
-    alarms: []
+    alarms: [],
+    formActive: false
   }
 
   async componentWillMount() {
@@ -17,6 +19,10 @@ class AlertsList extends Component {
       response = await axios.get(`/api/users/${this.state.user.id}/alarms`)
       await this.setState({ alarms: response.data })
     } catch (err) { console.log(err) }
+  }
+
+  toggleForm = () => {
+    this.setState({ formActive: !this.state.formActive });
   }
 
   render() {
@@ -47,6 +53,16 @@ class AlertsList extends Component {
               </div>
             )
           })
+        }
+        <hr />
+        {
+          this.state.formActive ?
+            <div>
+              <AlertForm />
+              <button onClick={this.toggleForm}>Cancel</button>
+            </div>
+            :
+            <button onClick={this.toggleForm}>New Alert</button>
         }
       </div>
     );
