@@ -43,3 +43,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'hirb'
 gem 'dotenv-rails'
 gem 'twilio-ruby'
+# use delayed job for scheduling alerts
+gem 'delayed_job_active_record'
+# need daemons to start delayed_job
+gem 'daemons'
