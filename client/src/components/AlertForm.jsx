@@ -32,10 +32,17 @@ class AlertForm extends Component {
     this.setState({ today: todayString });
   }
 
-
-
   handleSubmit = async (alert) => {
-    console.log(this.state.isReminder ? 'reminder: ' : 'alarm: ', alert);
+    // console.log(this.state.isReminder ? 'reminder: ' : 'alarm: ', alert);
+    let time = new Date;
+    let timezone = time.getTimezoneOffset();
+    if (this.state.isReminder) {
+      alert.time_of_reminder += ` ${timezone}`;
+      this.props.addReminder(alert)
+    } else {
+      alert.time_of_alarm += ` ${timezone}`
+      this.props.addAlarm(alert)
+    }
   }
 
   toggleForm = () => {
@@ -50,13 +57,13 @@ class AlertForm extends Component {
             <div>
               <button onClick={this.toggleForm}>Alarm</button>
               <br />
-              <ReminderForm today={this.state.today} />
+              <ReminderForm today={this.state.today} submit={this.handleSubmit} />
             </div>
             :
             <div>
               <button onClick={this.toggleForm}>Reminder</button>
               <br />
-              <AlarmForm today={this.state.today} />
+              <AlarmForm today={this.state.today} submit={this.handleSubmit} />
             </div>
         }
       </div>

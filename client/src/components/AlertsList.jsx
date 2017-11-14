@@ -14,15 +14,45 @@ class AlertsList extends Component {
     try {
       let response = await axios.get(`/api/users/${this.props.match.params.userId}`)
       await this.setState({ user: response.data })
-      response = await axios.get(`/api/users/${this.state.user.id}/reminders`)
+      await this.getReminders();
+      await this.getAlarms();
+    } catch (err) { console.log(err) }
+  }
+
+  getReminders = async () => {
+    try {
+      let response = await axios.get(`/api/users/${this.state.user.id}/reminders`)
       await this.setState({ reminders: response.data })
-      response = await axios.get(`/api/users/${this.state.user.id}/alarms`)
+    } catch (err) { console.log(err) }
+  }
+
+  getAlarms = async () => {
+    try {
+      let response = await axios.get(`/api/users/${this.state.user.id}/alarms`)
       await this.setState({ alarms: response.data })
     } catch (err) { console.log(err) }
   }
 
   toggleForm = () => {
     this.setState({ formActive: !this.state.formActive });
+  }
+
+  addReminder = async (reminder) => {
+    console.log(reminder);
+    try {
+      await axios.post(`/api/users/${this.state.user.id}/reminders`, reminder);
+      this.toggleForm();
+      this.getReminders();
+    } catch (err) { console.log(err) }
+  }
+
+  addAlarm = async (alarm) => {
+    console.log(alarm);
+    try {
+      await axios.post(`/api/users/${this.state.user.id}/alarms`, alarm);
+      this.toggleForm();
+      this.getAlarms();
+    } catch (err) { console.log(err) }
   }
 
   render() {
@@ -58,7 +88,7 @@ class AlertsList extends Component {
         {
           this.state.formActive ?
             <div>
-              <AlertForm />
+              <AlertForm addReminder={this.addReminder} addAlarm={this.addAlarm} />
               <button onClick={this.toggleForm}>Cancel</button>
             </div>
             :

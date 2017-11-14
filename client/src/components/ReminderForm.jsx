@@ -11,7 +11,12 @@ class ReminderForm extends Component {
   }
 
   handleChange = (e) => {
-
+    let attribute = e.target.name;
+    const value = e.target.value;
+    let changedReminder = { ...this.state.reminder }
+    changedReminder[attribute] = value;
+    this.setState({ reminder: changedReminder });
+    console.log(changedReminder)
   }
 
   render() {
@@ -27,10 +32,16 @@ class ReminderForm extends Component {
             required />
           <br />
           <label htmlFor="title">Title</label>
-          <input type="title" type='text' onChange={this.handleChange} required />
+          <input name="title"
+            type='text'
+            onChange={this.handleChange}
+            required />
           <br />
           <label htmlFor="task">Task</label>
-          <input type="task" type='text' onChange={this.handleChange} required />
+          <input name="task"
+            type='text'
+            onChange={this.handleChange}
+            required />
           <br />
           <input type="submit" />
         </form>
