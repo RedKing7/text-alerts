@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios'
+import Login from './components/Login';
+import AlertsList from './components/AlertsList';
 
 class App extends Component {
 
-  test_twilio = async () => {
-    try {
-      let response = await axios.get('/test')
-      console.log(response.data)
-    } catch (err) { console.log(err) }
-  }
-
   render() {
     return (
-      <div>
-        <h1>Hello from React!</h1>
-        <button onClick={this.test_twilio}>test</button>
-      </div>
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path='/' component={Login} />
+            <Route path='/:userId/alerts' component={AlertsList} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
