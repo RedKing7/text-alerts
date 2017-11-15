@@ -18,6 +18,11 @@ class App extends Component {
             <Route path='/:userId/alerts' component={AlertsList} />
             <Route path='/:userId' component={User} />
           </Switch>
+          <h4>
+            Currenty, this app is a prototype.
+            <br />
+            I recommend deleting your user after trying this out.
+          </h4>
         </div>
       </Router>
     );
