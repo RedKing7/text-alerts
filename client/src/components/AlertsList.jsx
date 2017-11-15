@@ -39,7 +39,6 @@ class AlertsList extends Component {
   }
 
   addReminder = async (reminder) => {
-    console.log(reminder);
     try {
       await axios.post(`/api/users/${this.state.user.id}/reminders`, reminder);
       this.toggleForm();
@@ -48,7 +47,6 @@ class AlertsList extends Component {
   }
 
   addAlarm = async (alarm) => {
-    console.log(alarm);
     try {
       await axios.post(`/api/users/${this.state.user.id}/alarms`, alarm);
       this.toggleForm();
@@ -77,16 +75,18 @@ class AlertsList extends Component {
       <div>
         <Link to="/">Logout</Link>
         <h1>{this.state.user.name}'s Alerts</h1>
+        <Link to={`/${this.state.user.id}`}>Account</Link>
         <hr />
         <h2>Reminders</h2>
         {
           this.state.reminders.map((reminder, index) => {
             return (
               <div key={index}>
-                <h3>{reminder.title}</h3>
-                <h4>{reminder.task}</h4>
+                <h3>Title: {reminder.title}</h3>
+                <h4>Task: {reminder.task}</h4>
                 <h4>{reminder.time_of_reminder}</h4>
                 <button id={reminder.id} onClick={this.deleteReminder}>Delete</button>
+                <br />
               </div>
             )
           })

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './components/Login';
 import AlertsList from './components/AlertsList';
 import Signup from './components/Signup';
+import User from './components/User';
 
 class App extends Component {
 
@@ -15,6 +16,7 @@ class App extends Component {
             <Route exact path='/' component={Login} />
             <Route path='/signup' component={Signup} />
             <Route path='/:userId/alerts' component={AlertsList} />
+            <Route path='/:userId' component={User} />
           </Switch>
         </div>
       </Router>

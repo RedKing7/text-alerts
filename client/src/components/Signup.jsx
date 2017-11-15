@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class Signup extends Component {
@@ -7,13 +8,17 @@ class Signup extends Component {
       name: 'name',
       password: 'password',
       phone_number: 'xxx-xxx-xxxx'
-    }
+    },
+    userId: '',
+    redirect: false
   }
 
   createUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/users`, this.state.user);
+      let response = await axios.post(`/api/users`, this.state.user);
+      await this.setState({ userId: response.data.id });
+      this.toggleRedirect();
     } catch (err) { console.log(err) }
   }
 
@@ -25,7 +30,14 @@ class Signup extends Component {
     this.setState({ user: changedUser });
   }
 
+  toggleRedirect = () => {
+    this.setState({ redirect: !this.state.redirect });
+  }
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={`/${this.state.userId}/alerts`} />
+    }
     return (
       <div>
         <form onSubmit={this.createUser}>
@@ -60,6 +72,7 @@ class Signup extends Component {
           <br /><br />
           <input type="submit" />
         </form>
+        <Link to='/'>Cancel</Link>
       </div>
     );
   }
