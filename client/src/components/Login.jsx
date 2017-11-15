@@ -28,6 +28,8 @@ class Login extends Component {
             )
           })
         }
+        <hr />
+        <Link to="/signup">Sign Up</Link>
       </div>
     );
   }

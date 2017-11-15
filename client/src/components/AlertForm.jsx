@@ -32,7 +32,7 @@ class AlertForm extends Component {
   }
 
   handleSubmit = async (alert) => {
-    let time = new Date;
+    let time = new Date();
     let timezone = time.getTimezoneOffset();
     if (this.state.isReminder) {
       // before: 2017-11-15T09:43
