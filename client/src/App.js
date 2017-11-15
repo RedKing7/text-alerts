@@ -23,7 +23,7 @@ class App extends Component {
             <br />
             I recommend deleting your user after trying this out.
             <br />
-            And don't use a real password
+            {/* And don't use a real password */}
           </h4>
         </div>
       </Router>

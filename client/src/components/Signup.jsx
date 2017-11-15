@@ -7,7 +7,8 @@ class Signup extends Component {
     user: {
       name: 'name',
       password: 'password',
-      phone_number: 'xxx-xxx-xxxx'
+      phone_number: 'xxx-xxx-xxxx',
+      email: 'name@example.com'
     },
     userId: '',
     redirect: false
@@ -16,7 +17,7 @@ class Signup extends Component {
   createUser = async (e) => {
     e.preventDefault();
     try {
-      let response = await axios.post(`/api/users`, this.state.user);
+      let response = await axios.post(`/api/users/`, this.state.user);
       await this.setState({ userId: response.data.id });
       this.toggleRedirect();
     } catch (err) { console.log(err) }
@@ -50,13 +51,23 @@ class Signup extends Component {
             required />
           <br />
 
-          <label htmlFor="password">Password: </label>
+          {/* <label htmlFor="password">Password: </label>
           <input
             name='password'
             type="password"
             onChange={this.handleChange}
             value={this.state.user.password}
             required />
+          <br /> */}
+
+          <label htmlFor="email">Email: </label>
+          <input
+            name='email'
+            type="text"
+            onChange={this.handleChange}
+            value={this.state.user.email}
+            required />
+
           <br /><br />
 
           <label htmlFor="phone_number">Phone Number, with the format 123-456-7890</label>
