@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
 import AlarmForm from './AlarmForm';
 import ReminderForm from './ReminderForm';
 
@@ -39,8 +38,8 @@ class AlertForm extends Component {
       // before: 2017-11-15T09:43
       let remind_date = new Date(alert.time_of_reminder);
       let utc = new Date(remind_date + (timezone * (60 * 1000)));
-      // after: Wed Nov 15 2017 09:43:00 GMT-0500 (EST)
       alert.time_of_reminder = utc;
+      // after: Wed Nov 15 2017 09:43:00 GMT-0500 (EST)
       this.props.addReminder(alert)
     } else {
       let alarm_date = new Date(alert.time_of_alarm);

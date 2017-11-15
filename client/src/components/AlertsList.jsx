@@ -55,6 +55,22 @@ class AlertsList extends Component {
     } catch (err) { console.log(err) }
   }
 
+  deleteAlarm = async (e) => {
+    try {
+      let alarmId = e.target.id;
+      await axios.delete(`/api/users/${this.state.user.id}/alarms/${alarmId}`)
+      this.getAlarms();
+    } catch (err) { console.log(err) }
+  }
+
+  deleteReminder = async (e) => {
+    try {
+      let reminderId = e.target.id;
+      await axios.delete(`/api/users/${this.state.user.id}/reminders/${reminderId}`)
+      this.getReminders();
+    } catch (err) { console.log(err) }
+  }
+
   render() {
     return (
       <div>
@@ -68,6 +84,7 @@ class AlertsList extends Component {
                 <h3>{reminder.title}</h3>
                 <h4>{reminder.task}</h4>
                 <h4>{reminder.time_of_reminder}</h4>
+                <button id={reminder.id} onClick={this.deleteReminder}>Delete</button>
               </div>
             )
           })
@@ -80,6 +97,7 @@ class AlertsList extends Component {
               <div key={index}>
                 <h3>{alarm.name}</h3>
                 <h4>{alarm.time_of_alarm}</h4>
+                <button id={alarm.id} onClick={this.deleteAlarm}>Delete</button>
               </div>
             )
           })
