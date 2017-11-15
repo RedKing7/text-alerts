@@ -17,9 +17,9 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <h1>Users</h1>
+        <h1>Sign in</h1>
         <hr />
-        {
+        {/*
           this.state.users.map((user, index) => {
             return (
               <div key={index}>
@@ -27,7 +27,7 @@ class Login extends Component {
               </div>
             )
           })
-        }
+        */}
         <hr />
         <Link to="/signup">Sign Up</Link>
       </div>

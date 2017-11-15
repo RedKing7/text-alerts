@@ -22,6 +22,8 @@ class App extends Component {
             Currenty, this app is a prototype.
             <br />
             I recommend deleting your user after trying this out.
+            <br />
+            And don't use a real password
           </h4>
         </div>
       </Router>
