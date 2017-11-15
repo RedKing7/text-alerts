@@ -33,14 +33,20 @@ class AlertForm extends Component {
   }
 
   handleSubmit = async (alert) => {
-    // console.log(this.state.isReminder ? 'reminder: ' : 'alarm: ', alert);
     let time = new Date;
     let timezone = time.getTimezoneOffset();
     if (this.state.isReminder) {
-      alert.time_of_reminder += ` ${timezone}`;
+      // before: 2017-11-15T09:43
+      let remind_date = new Date(alert.time_of_reminder);
+      let utc = new Date(remind_date + (timezone * (60 * 1000)));
+      // after: Wed Nov 15 2017 09:43:00 GMT-0500 (EST)
+      alert.time_of_reminder = utc;
       this.props.addReminder(alert)
     } else {
-      alert.time_of_alarm += ` ${timezone}`
+      let alarm_date = new Date(alert.time_of_alarm);
+      //turns date into UTC format, so the timezone is set correctly in rails
+      let utc = new Date(alarm_date + (timezone * (60 * 1000)));
+      alert.time_of_alarm = utc;
       this.props.addAlarm(alert)
     }
   }
