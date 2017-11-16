@@ -13,6 +13,10 @@ class User extends Component {
   }
 
   async componentWillMount() {
+    await this.getUser();
+  }
+
+  getUser = async () => {
     try {
       let userId = this.props.match.params.userId;
       let response = await axios.get(`/api/users/${userId}`);
@@ -44,6 +48,7 @@ class User extends Component {
       console.log(response);
       // if(response.data !== 'success')
       this.toggleVerifyForm();
+      this.getUser();
     } catch (err) { console.log(err) }
   }
 
@@ -78,10 +83,12 @@ class User extends Component {
 
         {
           this.state.user.verified ?
-            null
+            <div>
+              <h2>You are now verified! You will be un-verified after 20 minutes.</h2>
+            </div>
             :
             <div>
-              <h1>This number is not verified. You must verify before you can schedule alerts</h1>
+              <h2>This number is not verified. You must verify before you can schedule alerts</h2>
               {
                 this.state.verifyForm ?
                   <form onSubmit={this.verify}>
