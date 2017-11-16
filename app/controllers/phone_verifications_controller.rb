@@ -4,7 +4,7 @@ class PhoneVerificationsController < ApplicationController
     @response = Authy::PhoneVerification.start(
       via: 'sms',
       country_code: 1, # US country code
-      phone_number: params[:phone_number]
+      phone_number: user.phone_number
     )
     if @response.ok?
       render json: 'success'
@@ -18,7 +18,7 @@ class PhoneVerificationsController < ApplicationController
     @response = Authy::PhoneVerification.check(
       verification_code: params[:code],
       country_code: 1,
-      phone_number: params[:phone_number]
+      phone_number: user.phone_number
     )
     if @response.ok?
       user.verified = true
