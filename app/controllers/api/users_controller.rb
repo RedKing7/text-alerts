@@ -1,4 +1,9 @@
 class Api::UsersController < ApplicationController
+  def index
+    @users = User.all
+    render json: @users
+  end
+
   def create
     @user = User.create!(user_params)
     
@@ -27,6 +32,6 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :password, :phone_number, :email)
+    params.require(:user).permit(:name, :phone_number)
   end
 end

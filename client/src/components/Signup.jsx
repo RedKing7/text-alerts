@@ -6,9 +6,9 @@ class Signup extends Component {
   state = {
     user: {
       name: 'name',
-      password: 'password',
+      // password: 'password',
       phone_number: 'xxx-xxx-xxxx',
-      email: 'name@example.com'
+      // email: 'name@example.com'
     },
     userId: '',
     redirect: false
@@ -37,9 +37,9 @@ class Signup extends Component {
   }
 
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to={`/${this.state.userId}/alerts`} />
-    // }
+    if (this.state.redirect) {
+      return <Redirect to={`/${this.state.userId}/`} />
+    }
     return (
       <div>
         <form onSubmit={this.createUser}>
@@ -50,27 +50,7 @@ class Signup extends Component {
             onChange={this.handleChange}
             value={this.state.user.name}
             required />
-          <br />
-
-          {/* <label htmlFor="password">Password: </label>
-          <input
-            name='password'
-            type="password"
-            onChange={this.handleChange}
-            value={this.state.user.password}
-            required />
-          <br /> */}
-
-          <label htmlFor="email">Email: </label>
-          <input
-            name='email'
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.user.email}
-            required />
-
           <br /><br />
-
           <label htmlFor="phone_number">Phone Number, with the format 123-456-7890</label>
           <br />
           <input
@@ -84,21 +64,6 @@ class Signup extends Component {
           <br /><br />
           <input type="submit" />
         </form>
-
-        {
-          this.state.redirect ?
-            <div>
-              <h1>Challenge</h1>
-              <form onSubmit={this.handleVerify}>
-                <label htmlFor="code">Enter the code you were sent</label>
-                <input name='code' type="text" />
-                <input type="submit" value="Verify" />
-              </form>
-            </div>
-            :
-            null
-        }
-
         <br /><hr /><br />
 
         <Link to='/'>Cancel</Link>

@@ -8,7 +8,8 @@ class User extends Component {
     user: {},
     showConfirmation: false,
     redirect: false,
-    code: ''
+    code: '',
+    verifyForm: false
   }
 
   async componentWillMount() {
@@ -27,27 +28,35 @@ class User extends Component {
     } catch (err) { console.log(err) }
   }
 
-  toggleConfirmation = () => {
-    this.setState({ showConfirmation: !this.state.showConfirmation });
-  }
-
-  toggleRedirect = () => {
-    this.setState({ redirect: !this.state.redirect });
-  }
-
   startVerification = async () => {
     try {
-      let response = await axios.post('/phone_verifications/', { phone_number: this.state.user.phone_number })
+      let response = await axios.post('/phone_verifications/', { phone_number: this.state.user.phone_number, user_id: this.state.user.id })
       console.log(response);
+      // if(response.data !== 'success')
+      this.toggleVerifyForm();
     } catch (err) { console.log(err) }
   }
 
   verify = async (e) => {
     e.preventDefault();
     try {
-      let response = await axios.post('/phone_verifications/verify', { code: this.state.code, phone_number: this.state.user.phone_number })
+      let response = await axios.post('/phone_verifications/verify', { code: this.state.code, phone_number: this.state.user.phone_number, user_id: this.state.user.id })
       console.log(response);
+      // if(response.data !== 'success')
+      this.toggleVerifyForm();
     } catch (err) { console.log(err) }
+  }
+
+  toggleConfirmation = () => {
+    this.setState({ showConfirmation: !this.state.showConfirmation });
+  }
+
+  toggleVerifyForm = () => {
+    this.setState({ verifyForm: !this.state.verifyForm });
+  }
+
+  toggleRedirect = () => {
+    this.setState({ redirect: !this.state.redirect });
   }
 
   handleChange = (e) => {
@@ -66,12 +75,27 @@ class User extends Component {
     return (
       <div>
         <h1>{this.state.user.name}</h1>
-        <button onClick={this.startVerification}>Verify Number</button>
-        <form onSubmit={this.verify}>
-          <label htmlFor="code">Enter the code you were sent: </label>
-          <input name='code' type="text" value={this.state.code} onChange={this.handleChange} />
-          <input type="submit" value='Verify' />
-        </form>
+
+        {
+          this.state.user.verified ?
+            null
+            :
+            <div>
+              <h1>This number is not verified. You must verify before you can schedule alerts</h1>
+              {
+                this.state.verifyForm ?
+                  <form onSubmit={this.verify}>
+                    <label htmlFor="code">Enter the code you were sent: </label>
+                    <input name='code' type="text" value={this.state.code} onChange={this.handleChange} />
+                    <input type="submit" value='Verify' />
+                    <br />
+                    <label>Didn't get it? Either there was an error, or you didn't enter the number correctly. Either way, you should delete this account and try again</label>
+                  </form>
+                  :
+                  <button onClick={this.startVerification}>Verify Number</button>
+              }
+            </div>
+        }
         <hr />
         {
           this.state.showConfirmation ?

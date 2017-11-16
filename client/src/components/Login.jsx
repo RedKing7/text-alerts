@@ -10,6 +10,7 @@ class Login extends Component {
   async componentWillMount() {
     try {
       let response = await axios.get('/api/users')
+      console.log(response.data)
       this.setState({ users: response.data })
     } catch (err) { console.log(err) }
   }
@@ -19,7 +20,7 @@ class Login extends Component {
       <div>
         <h1>Sign in</h1>
         <hr />
-        {/*
+        {
           this.state.users.map((user, index) => {
             return (
               <div key={index}>
@@ -27,7 +28,7 @@ class Login extends Component {
               </div>
             )
           })
-        */}
+        }
         <hr />
         <Link to="/signup">Sign Up</Link>
       </div>
