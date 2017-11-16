@@ -23,7 +23,14 @@ class Login extends Component {
           this.state.users.map((user, index) => {
             return (
               <div key={index}>
-                <Link to={`/${user.id}/alerts`}>{user.name}</Link>
+                <Link to={`/${user.id}/`}>{user.name}</Link>
+                {/* display name in different color if not verified */}
+                {
+                  // user.has_been_verified ?
+                  //   null
+                  //   :
+                  //   null
+                }
               </div>
             )
           })

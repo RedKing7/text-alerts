@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import AlertForm from './AlertForm';
 
@@ -8,13 +8,17 @@ class AlertsList extends Component {
     user: {},
     reminders: [],
     alarms: [],
-    formActive: false
+    formActive: false,
+    redirect: false
   }
 
   async componentWillMount() {
     try {
       let response = await axios.get(`/api/users/${this.props.match.params.userId}`)
       await this.setState({ user: response.data })
+      if (!this.state.user.verified) {
+        await this.setState({ redirect: true });
+      }
       await this.getReminders();
       await this.getAlarms();
     } catch (err) { console.log(err) }
@@ -71,6 +75,9 @@ class AlertsList extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={`/`} />
+    }
     return (
       <div>
         <Link to="/">Logout</Link>

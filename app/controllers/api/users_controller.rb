@@ -1,16 +1,15 @@
 class Api::UsersController < ApplicationController
   def index
     @users = User.all
-    @safeUsers = []
+    @safe_users = []
     @users.each do |user|
-      @safeUsers.push({name: user.name, id: user.id})
+      @safe_users.push({name: user.name, id: user.id, has_been_verified: user.has_been_verified})
     end
-    render json: @safeUsers
+    render json: @safe_users
   end
 
   def create
     @user = User.create!(user_params)
-    
     render json: @user
   end
 
@@ -19,7 +18,7 @@ class Api::UsersController < ApplicationController
     if @user.verified
       render json: @user
     else
-      render json: { name: @user.name, id: @user.id, verified: @user.verified }
+      render json: { name: @user.name, id: @user.id, verified: @user.verified, has_been_verified: @user.has_been_verified}
     end
   end
 
@@ -43,7 +42,6 @@ class Api::UsersController < ApplicationController
     else
       render json: { error: 'not verified' }
     end
-
   end
 
   private
