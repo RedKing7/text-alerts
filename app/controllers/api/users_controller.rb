@@ -37,7 +37,7 @@ class Api::UsersController < ApplicationController
   def destroy
     user_id = params[:id]
     @user = User.find_by_id(user_id)
-    if @user.verified
+    if @user.verified || !@user.has_been_verified
       @user = User.find(params[:id]).delete
       render status: :ok
     else

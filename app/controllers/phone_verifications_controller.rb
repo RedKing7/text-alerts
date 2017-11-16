@@ -22,6 +22,7 @@ class PhoneVerificationsController < ApplicationController
     )
     if @response.ok?
       user.verified = true
+      user.has_been_verified = true
       user.save
       render json: 'success'
     else
