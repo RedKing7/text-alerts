@@ -21,6 +21,7 @@ ACCOUNT_SID = ENV['ACCOUNT_SID']
 AUTH_TOKEN = ENV['AUTH_TOKEN']
 TEST_NUMBER = ENV['TEST_NUMBER']
 TWILIO_NUMBER = ENV['TWILIO_NUMBER']
+AUTHY_KEY = ENV['AUTHY_KEY']
 
 module TextAlerts
   class Application < Rails::Application

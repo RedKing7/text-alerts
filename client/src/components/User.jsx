@@ -7,7 +7,8 @@ class User extends Component {
   state = {
     user: {},
     showConfirmation: false,
-    redirect: false
+    redirect: false,
+    code: ''
   }
 
   async componentWillMount() {
@@ -34,6 +35,28 @@ class User extends Component {
     this.setState({ redirect: !this.state.redirect });
   }
 
+  startVerification = async () => {
+    try {
+      let response = await axios.post('/phone_verifications/', { phone_number: this.state.user.phone_number })
+      console.log(response);
+    } catch (err) { console.log(err) }
+  }
+
+  verify = async (e) => {
+    e.preventDefault();
+    try {
+      let response = await axios.post('/phone_verifications/verify', { code: this.state.code, phone_number: this.state.user.phone_number })
+      console.log(response);
+    } catch (err) { console.log(err) }
+  }
+
+  handleChange = (e) => {
+    let value = e.target.value;
+    let changedCode = { ...this.state.code };
+    changedCode = value;
+    this.setState({ code: changedCode });
+  }
+
   render() {
     if (this.state.redirect) {
       return (
@@ -43,7 +66,12 @@ class User extends Component {
     return (
       <div>
         <h1>{this.state.user.name}</h1>
-        <button>Change Number</button>
+        <button onClick={this.startVerification}>Verify Number</button>
+        <form onSubmit={this.verify}>
+          <label htmlFor="code">Enter the code you were sent: </label>
+          <input name='code' type="text" value={this.state.code} onChange={this.handleChange} />
+          <input type="submit" value='Verify' />
+        </form>
         <hr />
         {
           this.state.showConfirmation ?

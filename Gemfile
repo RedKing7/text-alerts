@@ -47,3 +47,5 @@ gem 'twilio-ruby'
 gem 'delayed_job_active_record'
 # need daemons to start delayed_job
 gem 'daemons'
+
+gem 'authy'

@@ -18,6 +18,7 @@ class Signup extends Component {
     e.preventDefault();
     try {
       let response = await axios.post(`/api/users/`, this.state.user);
+      console.log(response);
       await this.setState({ userId: response.data.id });
       this.toggleRedirect();
     } catch (err) { console.log(err) }
@@ -36,9 +37,9 @@ class Signup extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={`/${this.state.userId}/alerts`} />
-    }
+    // if (this.state.redirect) {
+    //   return <Redirect to={`/${this.state.userId}/alerts`} />
+    // }
     return (
       <div>
         <form onSubmit={this.createUser}>
@@ -83,6 +84,23 @@ class Signup extends Component {
           <br /><br />
           <input type="submit" />
         </form>
+
+        {
+          this.state.redirect ?
+            <div>
+              <h1>Challenge</h1>
+              <form onSubmit={this.handleVerify}>
+                <label htmlFor="code">Enter the code you were sent</label>
+                <input name='code' type="text" />
+                <input type="submit" value="Verify" />
+              </form>
+            </div>
+            :
+            null
+        }
+
+        <br /><hr /><br />
+
         <Link to='/'>Cancel</Link>
       </div>
     );
