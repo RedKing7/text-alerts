@@ -79,6 +79,12 @@ class User extends Component {
     }
     return (
       <div>
+        {
+          this.state.user.verified ?
+            null
+            :
+            null
+        }
         <h1>{this.state.user.name}</h1>
         {
           this.state.user.verified ?
@@ -99,10 +105,36 @@ class User extends Component {
             <div>
               {
                 this.state.user.has_been_verified ?
-                  <h3>You need to verify that it's really you before you can continue</h3>
+                  <div>
+                    <h3>You need to verify that it's really you before you can continue</h3>
+                    {
+                      this.state.verifyForm ?
+                        <form onSubmit={this.verify}>
+                          <label htmlFor="code">Enter the code you were sent: </label>
+                          <input name='code' type="text" value={this.state.code} onChange={this.handleChange} minLength='4' maxLength='4' />
+                          <input type="submit" value='Verify' />
+                          <br />
+                          <label>Didn't get it? Either there was an error, or you didn't enter the number correctly. Either way, you should delete this account and try again</label>
+                        </form>
+                        :
+                        <button onClick={this.startVerification}>Verify Number</button>
+                    }
+                  </div>
                   :
                   <div>
                     <h3>This number is not verified. You must verify before you can continue.</h3>
+                    {
+                      this.state.verifyForm ?
+                        <form onSubmit={this.verify}>
+                          <label htmlFor="code">Enter the code you were sent: </label>
+                          <input name='code' type="text" value={this.state.code} onChange={this.handleChange} minLength='4' maxLength='4' />
+                          <input type="submit" value='Verify' />
+                          <br />
+                          <label>Didn't get it? Either there was an error, or you didn't enter the number correctly. Either way, you should delete this account and try again</label>
+                        </form>
+                        :
+                        <button onClick={this.startVerification}>Verify Number</button>
+                    }
                     <hr />
                     {
                       this.state.showConfirmation ?
@@ -112,21 +144,9 @@ class User extends Component {
                           <button onClick={this.deleteUser}>Delete</button>
                         </div>
                         :
-                        <button onClick={this.toggleConfirmation}>Cancel, Delete User</button>
+                        <button onClick={this.toggleConfirmation}>Delete User</button>
                     }
                   </div>
-              }
-              {
-                this.state.verifyForm ?
-                  <form onSubmit={this.verify}>
-                    <label htmlFor="code">Enter the code you were sent: </label>
-                    <input name='code' type="text" value={this.state.code} onChange={this.handleChange} minLength='4' maxLength='4' />
-                    <input type="submit" value='Verify' />
-                    <br />
-                    <label>Didn't get it? Either there was an error, or you didn't enter the number correctly. Either way, you should delete this account and try again</label>
-                  </form>
-                  :
-                  <button onClick={this.startVerification}>Verify Number</button>
               }
             </div>
         }

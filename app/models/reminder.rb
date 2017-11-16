@@ -9,7 +9,7 @@ class Reminder < ApplicationRecord
     @phone_number = User.find(self.user_id).phone_number
     time_str = ((self.time_of_reminder).localtime).strftime("%I:%M%p on %b. %d, %Y")
     reminder = "#\n#{self.title}\n#{self.task}"
-    @client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
+    @client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
     message = @client.messages.create(
       :from => TWILIO_NUMBER,
       :to => @phone_number,
@@ -28,7 +28,7 @@ class Reminder < ApplicationRecord
   def confirmation
     time_str = ((time_of_reminder).localtime).strftime("%I:%M%p on %b. %d, %Y")
     @phone_number = User.find(user_id).phone_number
-    @client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
+    @client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
     message = @client.messages.create(
       body: "\nYou scheduled a reminder for #{time_str}.",
       to: @phone_number,
