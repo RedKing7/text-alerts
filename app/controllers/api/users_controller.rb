@@ -1,7 +1,11 @@
 class Api::UsersController < ApplicationController
   def index
     @users = User.all
-    render json: @users
+    @safeUsers = []
+    @users.each do |user|
+      @safeUsers.push({name: user.name, id: user.id})
+    end
+    render json: @safeUsers
   end
 
   def create
@@ -12,21 +16,34 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
-    render json: @user
+    if @user.verified
+      render json: @user
+    else
+      render json: { name: @user.name, id: @user.id, verified: @user.verified }
+    end
   end
 
   def update
     user_id = params[:id]
     @user = User.find_by_id(user_id)
-    @user.update_attributes(user_params)
-    render json: @user
+    if @user.verified
+      @user.update_attributes(user_params)
+      render json: @user
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def destroy
-    @user = User.find(params[:id]).delete
+    user_id = params[:id]
+    @user = User.find_by_id(user_id)
+    if @user.verified
+      @user = User.find(params[:id]).delete
+      render status: :ok
+    else
+      render json: { error: 'not verified' }
+    end
 
-    render status: :ok
   end
 
   private

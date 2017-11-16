@@ -1,36 +1,61 @@
 class Api::RemindersController < ApplicationController
   def index
-    @reminders = User.find(params[:user_id]).reminders
-    render json: @reminders
+    @user = User.find(params[:user_id])
+    if @user.verified
+      @reminders = @user.reminders
+      render json: @reminders
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def show
-    @reminder = Reminder.find(params[:id])
-
-    render json: @reminder
+    @user = User.find(params[:user_id])
+    if @user.verified
+      @reminder = Reminder.find(params[:id])
+  
+      render json: @reminder
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def create
     @user = User.find(params[:user_id])
-    @reminder = Reminder.new(reminder_params)
+    if @user.verified
+      @reminder = Reminder.new(reminder_params)
 
-    @user.reminders << @reminder
-    @user.save!
+      @user.reminders << @reminder
+      @user.save!
 
-    render json: @reminder
+      render json: @reminder
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def update
-    @reminder = Reminder.find(params[:id])
-    @reminder.update_attributes(reminder_params)
-
-    render json: @reminder
+    @user = User.find(params[:user_id])
+    if @user.verified
+      @reminder = Reminder.find(params[:id])
+      @reminder.update_attributes(reminder_params)
+  
+      render json: @reminder
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def destroy
-    @reminder = Reminder.find(params[:id]).delete
+    @user = User.find(params[:user_id])
+    if @user.verified
+      @reminder = Reminder.find(params[:id]).delete
+      
+      render status: :ok
+    else
+      render json: { error: 'not verified' }
+    end
 
-    render status: :ok
   end
 
   private

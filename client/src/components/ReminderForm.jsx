@@ -16,7 +16,6 @@ class ReminderForm extends Component {
     let changedReminder = { ...this.state.reminder }
     changedReminder[attribute] = value;
     this.setState({ reminder: changedReminder });
-    console.log(changedReminder)
   }
 
   render() {

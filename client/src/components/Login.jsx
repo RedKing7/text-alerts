@@ -10,7 +10,6 @@ class Login extends Component {
   async componentWillMount() {
     try {
       let response = await axios.get('/api/users')
-      console.log(response.data)
       this.setState({ users: response.data })
     } catch (err) { console.log(err) }
   }

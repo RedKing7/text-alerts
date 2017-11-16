@@ -1,36 +1,59 @@
 class Api::AlarmsController < ApplicationController
   def index
-    @alarms = User.find(params[:user_id]).alarms
-    render json: @alarms
+    @user = User.find(params[:user_id])
+    if @user.verified
+      render json: @user.alarms
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def show
-    @alarm = Alarm.find(params[:id])
-
-    render json: @alarm
+    @user = User.find(params[:user_id])
+    if @user.verified
+      @alarm = Alarm.find(params[:id])
+  
+      render json: @alarm
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def create
     @user = User.find(params[:user_id])
-    @alarm = Alarm.new(alarm_params)
-
-    @user.alarms << @alarm
-    @user.save!
-
-    render json: @alarm
+    if @user.verified
+      @alarm = Alarm.new(alarm_params)
+  
+      @user.alarms << @alarm
+      @user.save!
+  
+      render json: @alarm
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def update
-    @alarm = Alarm.find(params[:id])
-    @alarm.update_attributes(alarm_params)
-
-    render json: @alarm
+    @user = User.find(params[:user_id])
+    if @user.verified
+      @alarm = Alarm.find(params[:id])
+      @alarm.update_attributes(alarm_params)
+  
+      render json: @alarm
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   def destroy
-    @alarm = Alarm.find(params[:id]).delete
-
-    render status: :ok
+    @user = User.find(params[:user_id])
+    if @user.verified
+      @alarm = Alarm.find(params[:id]).delete
+  
+      render status: :ok
+    else
+      render json: { error: 'not verified' }
+    end
   end
 
   private

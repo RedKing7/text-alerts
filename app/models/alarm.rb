@@ -7,7 +7,6 @@ class Alarm < ApplicationRecord
 
   def send_reminder
     @phone_number = User.find(user_id).phone_number
-    puts @phone_number
     alarm = "#\n#{name}"
     @client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
     message = @client.messages.create(
@@ -28,7 +27,6 @@ class Alarm < ApplicationRecord
   def confirmation
     time_str = ((time_of_alarm).localtime).strftime("%I:%M%p on %b. %d, %Y")
     @phone_number = User.find(user_id).phone_number
-    puts @phone_number
     @client = Twilio::REST::Client.new ACCOUNT_SID, AUTH_TOKEN
     message = @client.messages.create(
       body: "\nYou scheduled an alarm for #{time_str}.",

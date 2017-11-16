@@ -35,7 +35,6 @@ class User extends Component {
   startVerification = async () => {
     try {
       let response = await axios.post('/phone_verifications/', { phone_number: this.state.user.phone_number, user_id: this.state.user.id })
-      console.log(response);
       // if(response.data !== 'success')
       this.toggleVerifyForm();
     } catch (err) { console.log(err) }
@@ -45,7 +44,6 @@ class User extends Component {
     e.preventDefault();
     try {
       let response = await axios.post('/phone_verifications/verify', { code: this.state.code, phone_number: this.state.user.phone_number, user_id: this.state.user.id })
-      console.log(response);
       // if(response.data !== 'success')
       this.toggleVerifyForm();
       this.getUser();
@@ -84,7 +82,7 @@ class User extends Component {
         {
           this.state.user.verified ?
             <div>
-              <h2>You are now verified! You will be un-verified after 20 minutes.</h2>
+              <h2>You are now verified! You will be un-verified after 10 minutes.</h2>
             </div>
             :
             <div>

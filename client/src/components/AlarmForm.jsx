@@ -26,7 +26,6 @@ class AlarmForm extends Component {
     let changedAlarm = { ...this.state.alarm }
     changedAlarm[attribute] = value;
     this.setState({ alarm: changedAlarm });
-    console.log(changedAlarm)
   }
 
   render() {

@@ -18,7 +18,6 @@ class Signup extends Component {
     e.preventDefault();
     try {
       let response = await axios.post(`/api/users/`, this.state.user);
-      console.log(response);
       await this.setState({ userId: response.data.id });
       this.toggleRedirect();
     } catch (err) { console.log(err) }

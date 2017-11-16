@@ -27,7 +27,6 @@ class AlertForm extends Component {
 
     todayString = `${year}-${month}-${day}T${hours}:${minutes}`;
 
-    console.log(todayString);
     this.setState({ today: todayString });
   }
 
