@@ -62,7 +62,7 @@ class User extends Component {
         <h1>{this.state.user.name}</h1>
         {
           this.state.user.verified ?
-            <h3>You are currently verified.</h3>
+            <h3>You are currently verified. You will be automatically un-verified after 10 minutes.</h3>
             :
             <div>
               {

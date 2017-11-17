@@ -11,7 +11,7 @@ class VerifyForm extends Component {
     try {
       let response = await axios.post('/phone_verifications/', { user_id: this.props.userId })
       // if(response.data !== 'success')
-      console.log(response);
+      // console.log(response);
       this.toggleForm();
     } catch (err) { console.log(err) }
   }
@@ -21,7 +21,7 @@ class VerifyForm extends Component {
     try {
       let response = await axios.post('/phone_verifications/verify', { code: this.state.code, user_id: this.props.userId })
       // if(response.data !== 'success')
-      console.log(response);
+      // console.log(response);
       this.toggleForm();
       this.props.getUser();
     } catch (err) { console.log(err) }
