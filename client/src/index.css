@@ -1,5 +1,21 @@
 body {
-  margin: 10%;
+  margin: 0;
   padding: 0;
+  background-color: rgb(196, 202, 255);
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(50,50,50);
+}
+button{
+  font-size: 1.2em;
+  color: rgb(50,50,50);
+  background-color: white;
+}
+.cancel{
+  color: green;
+}
+.delete{
+  color: red;
 }

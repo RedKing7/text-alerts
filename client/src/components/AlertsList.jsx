@@ -2,6 +2,29 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import AlertForm from './AlertForm';
+import styled from 'styled-components';
+
+const ListDiv = styled.div`
+  h1{
+    font-size: 3em;
+    margin-bottom: 0;
+  }
+
+  input{
+    font-size: 1.5em;
+  }
+  a{
+    text-decoration: none;
+    color: inherit;
+    :hover{
+      color: blue;
+    }
+  }
+  .nav-link{
+    font-size: 1.4em;
+    font-weight: 800;
+  }
+`
 
 class AlertsList extends Component {
   state = {
@@ -79,10 +102,10 @@ class AlertsList extends Component {
       return <Redirect to={`/`} />
     }
     return (
-      <div>
+      <ListDiv>
         <Link to="/">Logout</Link>
         <h1>{this.state.user.name}'s Alerts</h1>
-        <Link to={`/${this.state.user.id}`}>Account</Link>
+        <Link className='nav-link' to={`/${this.state.user.id}`}>Account</Link>
         <hr />
         <h2>Reminders</h2>
         {
@@ -121,7 +144,7 @@ class AlertsList extends Component {
             :
             <button onClick={this.toggleForm}>New Alert</button>
         }
-      </div>
+      </ListDiv>
     );
   }
 }

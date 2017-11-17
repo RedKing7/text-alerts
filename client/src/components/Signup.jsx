@@ -1,14 +1,46 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const SignInDiv = styled.div`
+  h1{
+    font-size: 3em;
+  }
+
+  input{
+    font-size: 1.5em;
+  }
+    a{
+    text-decoration: none;
+    color: inherit;
+    :hover{
+      color: blue;
+    }
+  }
+`
+const FormDiv = styled.form`
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+const InputDiv = styled.div`
+  text-align: center;
+  margin: 10px;
+  font-size: 1.3em;
+  input{
+    text-align: center;
+    font-size: 1.2em;
+    background-color: rgba(168, 223, 255, .4);
+  }
+`
 
 class Signup extends Component {
   state = {
     user: {
       name: 'name',
-      // password: 'password',
       phone_number: 'xxx-xxx-xxxx',
-      // email: 'name@example.com'
     },
     userId: '',
     redirect: false
@@ -40,33 +72,36 @@ class Signup extends Component {
       return <Redirect to={`/${this.state.userId}/`} />
     }
     return (
-      <div>
-        <form onSubmit={this.createUser}>
-          <label htmlFor="name">Name: </label>
-          <input
-            name='name'
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.user.name}
-            required />
-          <br /><br />
-          <label htmlFor="phone_number">Phone Number, with the format 123-456-7890</label>
-          <br />
-          <input
-            name='phone_number'
-            type="tel"
-            maxLength='12'
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            onChange={this.handleChange}
-            value={this.state.user.phone_number}
-            required />
-          <br /><br />
-          <input type="submit" />
-        </form>
-        <br /><hr /><br />
-
+      <SignInDiv>
+        <h1>Create User</h1>
+        <FormDiv onSubmit={this.createUser}>
+          <InputDiv>
+            <label htmlFor="name">Name</label>
+            <br />
+            <input
+              name='name'
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.user.name}
+              required />
+          </InputDiv>
+          <InputDiv>
+            <label htmlFor="phone_number">Phone Number<br />(123-456-7890)</label>
+            <br />
+            <input
+              name='phone_number'
+              type="tel"
+              maxLength='12'
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              onChange={this.handleChange}
+              value={this.state.user.phone_number}
+              required />
+          </InputDiv>
+          <input className='submit' type="submit" />
+        </FormDiv>
+        <br />
         <Link to='/'>Cancel</Link>
-      </div>
+      </SignInDiv>
     );
   }
 }
