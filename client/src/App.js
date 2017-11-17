@@ -18,6 +18,24 @@ const Body = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+
+  h1{
+    font-size: 3em;
+  }
+  input{
+    font-size: 1.5em;
+  }
+  a{
+    text-decoration: none;
+    color: inherit;
+    :hover{
+      color: blue;
+    }
+  }
+  .nav-link{
+    font-size: 1.4em;
+    font-weight: 800;
+  }
 `
 
 class App extends Component {

@@ -5,25 +5,60 @@ import AlertForm from './AlertForm';
 import styled from 'styled-components';
 
 const ListDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
   h1{
-    font-size: 3em;
-    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: underline;
   }
-
-  input{
-    font-size: 1.5em;
+`
+const Links = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
+const AlertsUI = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  @media(max-width: 600px){
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
   }
-  a{
-    text-decoration: none;
-    color: inherit;
-    :hover{
-      color: blue;
-    }
+`
+const Alerts = styled.div`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media(min-width: 1000px){
+    width: 60%;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-  .nav-link{
-    font-size: 1.4em;
-    font-weight: 800;
+  @media(max-width: 600px){
+    width: 100%;
+    padding: 0 5px;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
+`
+const FormDiv = styled.div`
+  width: 60%;
+  @media(max-width: 600px){
+    width: 100%;
+  }
+  @media(min-width: 1000px){
+    width: 25%;
+  }
+`
+const Alert = styled.div`
+  padding: 20px 10px;
+  padding-top: 0;
+  box-shadow: 0 0 3px black;
+  margin: 5px;
 `
 
 class AlertsList extends Component {
@@ -31,7 +66,7 @@ class AlertsList extends Component {
     user: {},
     reminders: [],
     alarms: [],
-    formActive: false,
+    formActive: true, //!!!!!!!!!!!!! Change back to false!
     redirect: false
   }
 
@@ -103,47 +138,55 @@ class AlertsList extends Component {
     }
     return (
       <ListDiv>
-        <Link to="/">Logout</Link>
+        <Links>
+          <Link className='nav-link' to="/">Logout</Link>
+          <Link className='nav-link' to={`/${this.state.user.id}`}>Account</Link>
+        </Links>
         <h1>{this.state.user.name}'s Alerts</h1>
-        <Link className='nav-link' to={`/${this.state.user.id}`}>Account</Link>
-        <hr />
-        <h2>Reminders</h2>
-        {
-          this.state.reminders.map((reminder, index) => {
-            return (
-              <div key={index}>
-                <h3>Title: {reminder.title}</h3>
-                <h4>Task: {reminder.task}</h4>
-                <h4>{reminder.time_of_reminder}</h4>
-                <button id={reminder.id} onClick={this.deleteReminder}>Delete</button>
-                <br />
-              </div>
-            )
-          })
-        }
-        <hr />
-        <h2>Alarms</h2>
-        {
-          this.state.alarms.map((alarm, index) => {
-            return (
-              <div key={index}>
-                <h3>{alarm.name}</h3>
-                <h4>{alarm.time_of_alarm}</h4>
-                <button id={alarm.id} onClick={this.deleteAlarm}>Delete</button>
-              </div>
-            )
-          })
-        }
-        <hr />
-        {
-          this.state.formActive ?
-            <div>
-              <AlertForm addReminder={this.addReminder} addAlarm={this.addAlarm} />
-              <button onClick={this.toggleForm}>Cancel</button>
-            </div>
-            :
-            <button onClick={this.toggleForm}>New Alert</button>
-        }
+        <AlertsUI>
+          <Alerts>
+            {/* <h2>Reminders</h2> */}
+            {
+              this.state.reminders.map((reminder, index) => {
+                return (
+                  <Alert key={index}>
+                    <h2>Reminder</h2>
+                    <h3>{reminder.title}</h3>
+                    <h4>{reminder.task}</h4>
+                    <h4>{(new Date(reminder.time_of_reminder)).toLocaleString()}</h4>
+                    <button id={reminder.id} onClick={this.deleteReminder}>Delete</button>
+                    <br />
+                  </Alert>
+                )
+              })
+            }
+            {/* <hr /> */}
+            {/* <h2>Alarms</h2> */}
+            {
+              this.state.alarms.map((alarm, index) => {
+                return (
+                  <Alert key={index}>
+                    <h2>Alarm</h2>
+                    <h3>{alarm.name}</h3>
+                    <h4>{(new Date(alarm.time_of_alarm)).toLocaleString()}</h4>
+                    <button id={alarm.id} onClick={this.deleteAlarm}>Delete</button>
+                  </Alert>
+                )
+              })
+            }
+          </Alerts>
+          <FormDiv>
+            {
+              this.state.formActive ?
+                <div>
+                  <button onClick={this.toggleForm}>Cancel</button>
+                  <AlertForm addReminder={this.addReminder} addAlarm={this.addAlarm} />
+                </div>
+                :
+                <button onClick={this.toggleForm}>New Alert</button>
+            }
+          </FormDiv>
+        </AlertsUI>
       </ListDiv>
     );
   }

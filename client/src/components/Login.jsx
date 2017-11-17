@@ -5,26 +5,12 @@ import styled from 'styled-components';
 
 const LoginDiv = styled.div`
   h1{
-    font-size: 3em;
     margin-bottom: 0;
   }
   h2{
     width: 75%;
     text-align: left;
-  }
-  input{
-    font-size: 1.5em;
-  }
-  .nav{
-    margin-top: 30px;
-  }
-  a{
-    font-size: 1.2em;
-    text-decoration: none;
-    color: inherit;
-    :hover{
-      color: blue;
-    }
+    margin: 10px auto;
   }
 `
 const UserLink = styled.div`
@@ -33,6 +19,9 @@ const UserLink = styled.div`
   }
   font-size: 2em;
   margin-bottom: 10px;
+`
+const UserList = styled.div`
+  margin: 30px auto;
 `
 
 class Login extends Component {
@@ -52,22 +41,24 @@ class Login extends Component {
       <LoginDiv>
         <h1>Sign in</h1>
         <h2>Select your account, then verify your phone to continue</h2>
-        {
-          this.state.users.map((user, index) => {
-            return (
-              <UserLink key={index}>
-                {/* display name in different color if not verified */}
-                {
-                  user.has_been_verified ?
-                    <Link to={`/${user.id}/`} className='verified'>{user.name}</Link>
-                    :
-                    <Link to={`/${user.id}/`} className='un-verified'>{user.name}</Link>
-                }
-              </UserLink>
-            )
-          })
-        }
-        <Link className='nav' to="/signup">Sign Up</Link>
+        <UserList>
+          {
+            this.state.users.map((user, index) => {
+              return (
+                <UserLink key={index}>
+                  {/* display name in different color if not verified */}
+                  {
+                    user.has_been_verified ?
+                      <Link to={`/${user.id}/`} className='verified'>{user.name}</Link>
+                      :
+                      <Link to={`/${user.id}/`} className='un-verified'>{user.name}</Link>
+                  }
+                </UserLink>
+              )
+            })
+          }
+        </UserList>
+        <Link className='nav-link' to="/signup">Sign Up</Link>
       </LoginDiv>
     );
   }

@@ -21,27 +21,25 @@ class ReminderForm extends Component {
   render() {
     return (
       <div>
-        <h1>Reminder</h1>
         <form onSubmit={this.submit}>
-          <label htmlFor="time_of_reminder">Time of Reminder</label>
+          {/* <label htmlFor="time_of_reminder">Time of Reminder</label> */}
           <input name="time_of_reminder"
             type="datetime-local"
             min={this.props.today}
             onChange={this.handleChange}
             required />
-          <br />
-          <label htmlFor="title">Title</label>
+          {/* <label htmlFor="title">Title</label> */}
           <input name="title"
             type='text'
             onChange={this.handleChange}
+            placeholder='Title'
             required />
-          <br />
-          <label htmlFor="task">Task</label>
+          {/* <label htmlFor="task">Task</label> */}
           <input name="task"
             type='text'
             onChange={this.handleChange}
+            placeholder='Task'
             required />
-          <br />
           <input type="submit" />
         </form>
       </div>

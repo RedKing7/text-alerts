@@ -6,23 +6,7 @@ import VerifyForm from './VerifyForm';
 
 const UserDiv = styled.div`
   h1{
-    font-size: 3em;
     margin-bottom: 0;
-  }
-
-  input{
-    font-size: 1.5em;
-  }
-  a{
-    text-decoration: none;
-    color: inherit;
-    :hover{
-      color: blue;
-    }
-  }
-  .nav-link{
-    font-size: 1.4em;
-    font-weight: 800;
   }
 `
 
@@ -97,7 +81,7 @@ class User extends Component {
             :
             null
         }
-        <br /><br />
+        <br /><br /><br />
         {
           // only allow deletion if user has been verified and is currently verified
           // or if user has never been verified
@@ -113,7 +97,7 @@ class User extends Component {
             :
             null
         }
-        <br />
+        <br /><br />
         <Link className="nav-link" to='/'>Back</Link>
       </UserDiv>
     );

@@ -5,16 +5,6 @@ class AlarmForm extends Component {
     alarm: {}
   }
 
-  componentWillMount() {
-    this.setState({
-      alarm: {
-        repeat: false,
-        time_of_alarm: this.props.today,
-        name: 'New Alarm'
-      }
-    })
-  }
-
   submit = (e) => {
     e.preventDefault();
     this.props.submit(this.state.alarm);
@@ -31,33 +21,30 @@ class AlarmForm extends Component {
   render() {
     return (
       <div>
-        <h1>Alarm</h1>
         <form onSubmit={this.submit}>
-          <label htmlFor="time_of_alarm">Time of Alarm</label>
           <input name="time_of_alarm"
             type="datetime-local"
             min={this.props.today}
             onChange={this.handleChange}
             required />
-          <br />
-          <label htmlFor="name">Name</label>
           <input name="name"
             type='text'
             value={this.state.alarm.name}
             onChange={this.handleChange}
+            placeholder='Name'
             required />
-          <br />
-          <label htmlFor="repeat">Repeat</label>
-          <input name="repeat"
-            type='checkbox'
-            defaultChecked={
-              this.state.alarm.repeat ?
-                true
-                :
-                false
-            }
-            onChange={this.handleChange} />
-          <br />
+          <div className='check-and-label'>
+            <label htmlFor="repeat">Repeat: </label>
+            <input name="repeat"
+              type='checkbox'
+              defaultChecked={
+                this.state.alarm.repeat ?
+                  true
+                  :
+                  false
+              }
+              onChange={this.handleChange} />
+          </div>
           <input type="submit" />
         </form>
       </div>

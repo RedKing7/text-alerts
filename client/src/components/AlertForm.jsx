@@ -1,6 +1,34 @@
 import React, { Component } from 'react';
 import AlarmForm from './AlarmForm';
 import ReminderForm from './ReminderForm';
+import styled from 'styled-components';
+
+const AlertFormDiv = styled.div`
+  box-shadow: 0 0 5px black;
+  width: 80%;
+  margin: 20px auto;
+  padding: 10px 0;
+  h2{
+    font-size: 2em;
+    margin-bottom: 0;
+  }
+  input{
+    text-align: center;
+    width: 75%;
+    font-size: 1.3em;
+  }
+  label{
+    font-size: 1.5em;
+  }
+  form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  input[type='checkbox']{
+    width: 10%;
+  }
+`
 
 class AlertForm extends Component {
   state = {
@@ -9,7 +37,6 @@ class AlertForm extends Component {
     newAlarm: {},
     today: ''
   }
-
 
   componentWillMount() {
     // get today's date, for min value of time entry
@@ -55,22 +82,22 @@ class AlertForm extends Component {
 
   render() {
     return (
-      <div>
+      <AlertFormDiv>
         {
           this.state.isReminder ?
             <div>
               <button onClick={this.toggleForm}>Alarm</button>
-              <br />
+              <h2>New Reminder</h2>
               <ReminderForm today={this.state.today} submit={this.handleSubmit} />
             </div>
             :
             <div>
               <button onClick={this.toggleForm}>Reminder</button>
-              <br />
+              <h2>New Alarm</h2>
               <AlarmForm today={this.state.today} submit={this.handleSubmit} />
             </div>
         }
-      </div>
+      </AlertFormDiv>
     );
   }
 }
