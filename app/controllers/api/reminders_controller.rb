@@ -49,7 +49,7 @@ class Api::RemindersController < ApplicationController
   def destroy
     @user = User.find(params[:user_id])
     if @user.verified
-      @reminder = Reminder.find(params[:id]).delete
+      @reminder = Reminder.find(params[:id]).destroy
       
       render status: :ok
     else

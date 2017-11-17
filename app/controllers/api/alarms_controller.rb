@@ -48,7 +48,7 @@ class Api::AlarmsController < ApplicationController
   def destroy
     @user = User.find(params[:user_id])
     if @user.verified
-      @alarm = Alarm.find(params[:id]).delete
+      @alarm = Alarm.find(params[:id]).destroy
   
       render status: :ok
     else

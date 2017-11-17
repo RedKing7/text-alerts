@@ -37,7 +37,7 @@ class Api::UsersController < ApplicationController
     user_id = params[:id]
     @user = User.find_by_id(user_id)
     if @user.verified || !@user.has_been_verified
-      @user = User.find(params[:id]).delete
+      @user = User.find(params[:id]).destroy
       render status: :ok
     else
       render json: { error: 'not verified' }
