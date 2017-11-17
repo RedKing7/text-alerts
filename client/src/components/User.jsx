@@ -45,6 +45,14 @@ class User extends Component {
     this.setState({ redirect: !this.state.redirect });
   }
 
+  logout = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`/api/users/${this.state.user.id}/logout`, { user_id: this.state.user.id });
+      this.setState({ redirect: true });
+    } catch (err) { console.log(err) }
+  }
+
   render() {
     if (this.state.redirect) {
       return (
@@ -54,10 +62,10 @@ class User extends Component {
     return (
       <UserDiv>
         {
-          // this.state.user.verified ?
-          //   <a onClick={}>Log Out</a>
-          //   :
-          //   null
+          this.state.user.verified ?
+            <a onClick={this.logout}>Log Out</a>
+            :
+            null
         }
         <h1>{this.state.user.name}</h1>
         {

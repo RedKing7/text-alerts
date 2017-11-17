@@ -132,6 +132,15 @@ class AlertsList extends Component {
     } catch (err) { console.log(err) }
   }
 
+  logout = async (e) => {
+    e.preventDefault();
+    console.log('hello')
+    try {
+      await axios.post(`/api/users/${this.state.user.id}/logout`, { user_id: this.state.user.id });
+      this.setState({ redirect: true });
+    } catch (err) { console.log(err) }
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={`/`} />
@@ -139,7 +148,7 @@ class AlertsList extends Component {
     return (
       <ListDiv>
         <Links>
-          <Link className='nav-link' to="/">Logout</Link>
+          <a onClick={this.logout} className='nav-link'>Logout</a>
           <Link className='nav-link' to={`/${this.state.user.id}`}>Account</Link>
         </Links>
         <h1>{this.state.user.name}'s Alerts</h1>

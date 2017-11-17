@@ -44,6 +44,13 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def log_out
+    user_id = params[:user_id]
+    @user = User.find_by_id(user_id)
+    @user.update_column(:verified, false)
+    render status: :ok
+  end
+
   private
 
   def user_params

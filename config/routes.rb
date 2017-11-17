@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # get '/', to: 'application#index'
   namespace :api do
     resources :users do
+      post 'logout', to: 'users#log_out'
       resources :reminders
       resources :alarms
     end
