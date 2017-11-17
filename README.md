@@ -16,12 +16,13 @@ Once created, the alerts will be texted to you once the date/time they were set 
 1. clone this repository and `cd` into it
 2. run `bundle install`
 3. `cd client` and run `npm install` then `cd ..`
-4. Create a `.env` file in the root directory, with the same variable names in `.env.sample`
-4. Make a Twilio account
+4. Rename `.env.sample` to `.env`
+5. Make a Twilio account
   - add twilio SID, auth-token, and phone number to the `.env` file
-5. Make an authy app
+6. Make an authy app
   - add your authy api key to the `.env` file
-6. In the home directory, run `foreman start -f Procfile.dev`
+7. Run `rails db:create` and `rails db:migrate`
+8. In the home directory, run `foreman start -f Procfile.dev`
 
 
 ## Trello board
