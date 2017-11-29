@@ -43,14 +43,17 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Body>
-          <Switch>
-            <Route exact path='/' component={Login} />
-            <Route path='/signup' component={Signup} />
-            <Route path='/:userId/alerts' component={AlertsList} />
-            <Route path='/:userId' component={User} />
-          </Switch>
-        </Body>
+        <div>
+          {/* <h1>Text - Alerts</h1> */}
+          <Body>
+            <Switch>
+              <Route exact path='/' component={Login} />
+              <Route path='/signup' component={Signup} />
+              <Route path='/:userId/alerts' component={AlertsList} />
+              <Route path='/:userId' component={User} />
+            </Switch>
+          </Body>
+        </div>
       </Router>
     );
   }

@@ -22,6 +22,8 @@ class AlarmForm extends Component {
     return (
       <div>
         <form onSubmit={this.submit}>
+          {/* <input type="date" />
+          <input type="time" /> */}
           <input name="time_of_alarm"
             type="datetime-local"
             min={this.props.today}
@@ -33,7 +35,7 @@ class AlarmForm extends Component {
             onChange={this.handleChange}
             placeholder='Name'
             required />
-          <div className='check-and-label'>
+          {/* <div className='check-and-label'>
             <label htmlFor="repeat">Repeat: </label>
             <input name="repeat"
               type='checkbox'
@@ -44,7 +46,7 @@ class AlarmForm extends Component {
                   false
               }
               onChange={this.handleChange} />
-          </div>
+          </div> */}
           <input type="submit" />
         </form>
       </div>
